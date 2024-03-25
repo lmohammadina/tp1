@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  nginx1:
+    image: mysampleapp
+    environment:
+      - VIRTUAL_HOST=m1
+    networks:
+      - nginx-net
+
+  nginx2:
+    image: mysampleapp
+    environment:
+      - VIRTUAL_HOST=m2
+    networks:
+      - nginx-net
+
+  nginx3:
+    image: mysampleapp
+    environment:
+      - VIRTUAL_HOST=m3
+    networks:
+      - nginx-net
+
+  nginx4:
+    image: nginx
+    environment:
+      - VIRTUAL_HOST=m4
+    networks:
+      - nginx-net
+
+  loadbalancer:
+    image: jwilder/nginx-proxy 
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock
+    ports:
+      - "8080:80"
+    networks:
+      - nginx-net
+
+networks:
+  nginx-net:
+    driver: bridge
