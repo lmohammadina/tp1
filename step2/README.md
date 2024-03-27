@@ -1,2 +1,2 @@
 for execut:
-- sudo docker-compose
+- sudo docker-compose up
